@@ -1,24 +1,24 @@
-import { useDispatch } from "react-redux";
 import Button from "./common/Button";
 import styled from "styled-components";
-import { deleteTodo, switchTodo } from "../redux/modules/todosSlice";
+import { useTodos } from "../hooks/useTodos";
 
 type Props = {
-  todo: {
-    id: string;
-    title: string;
-    content: string;
-    isDone: boolean;
-  };
+  todo: TodoType;
 };
 
 const Todo = ({ todo }: Props) => {
-  const dispatch = useDispatch();
+  const { updateTodo, deleteTodo } = useTodos();
+
   const deleteTodoObj = (id: string) => {
-    dispatch(deleteTodo(id));
+    deleteTodo(id);
   };
+
   const switchTodoObj = (id: string) => {
-    dispatch(switchTodo(id));
+    const todoObj = {
+      ...todo,
+      isDone: !todo.isDone,
+    };
+    updateTodo(todoObj);
   };
   return (
     <StTodo key={todo.id}>

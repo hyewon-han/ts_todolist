@@ -1,34 +1,14 @@
 import Todo from "./Todo";
 import styled from "styled-components";
 import theme from "../styles/Theme";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/config/configStore";
-import { useQuery } from "@tanstack/react-query";
-import { getTodos } from "../api/todos";
-
-type TodoType = {
-  id: string;
-  title: string;
-  content: string;
-  isDone: boolean;
-};
+import { useTodos } from "../hooks/useTodos";
 
 type Props = {
   isDone: boolean;
 };
 
 const TodoList = ({ isDone }: Props) => {
-  //   const todos = useSelector((state: RootState) => state.todosSlice);
-
-  const {
-    data: todos = [],
-    isLoading,
-    error,
-  } = useQuery<TodoType[]>({
-    queryKey: ["todos"],
-    queryFn: getTodos,
-  });
-  console.log(todos);
+  const { todos = [], isLoading, error } = useTodos();
 
   if (isLoading) {
     return <div>Loading...</div>;

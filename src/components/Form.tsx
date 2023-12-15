@@ -2,13 +2,14 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import styled from "styled-components";
 import Button from "./common/Button";
 import { nanoid } from "nanoid";
-import { useDispatch } from "react-redux";
-import { addTodo } from "../redux/modules/todosSlice";
+import { useTodos } from "../hooks/useTodos";
 
 const Form = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const dispatch = useDispatch();
+  //   const dispatch = useDispatch();
+
+  const { addTodo } = useTodos();
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const {
@@ -26,7 +27,8 @@ const Form = () => {
       content,
       isDone: false,
     };
-    dispatch(addTodo(todoObj));
+    // dispatch(addTodo(todoObj));
+    addTodo(todoObj);
     setTitle("");
     setContent("");
   };
