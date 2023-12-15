@@ -1,43 +1,36 @@
-import React, { Dispatch, SetStateAction } from "react";
+import { useDispatch } from "react-redux";
 import Button from "./common/Button";
 import styled from "styled-components";
-
-type Todo = {
-  id: string;
-  title: string;
-  content: string;
-  isDone: boolean;
-};
+import { deleteTodo, switchTodo } from "../redux/modules/todosSlice";
 
 type Props = {
-  todo: Todo;
-  todos: Todo[];
-  setTodos: Dispatch<SetStateAction<Todo[]>>;
+  todo: {
+    id: string;
+    title: string;
+    content: string;
+    isDone: boolean;
+  };
 };
 
-const Todo = ({ todo, todos, setTodos }: Props) => {
-  const deleteTodo = (id: string) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+const Todo = ({ todo }: Props) => {
+  const dispatch = useDispatch();
+  const deleteTodoObj = (id: string) => {
+    dispatch(deleteTodo(id));
   };
-  const switchTodo = (id: string) => {
-    setTodos(
-      todos.map((todo) => {
-        if (todo.id === id) return { ...todo, isDone: !todo.isDone };
-        else return todo;
-      })
-    );
+  const switchTodoObj = (id: string) => {
+    dispatch(switchTodo(id));
   };
   return (
     <StTodo key={todo.id}>
       <p>{todo.title}</p>
       <p>{todo.content}</p>
       <div>
-        <Button onClick={() => deleteTodo(todo.id)} color="yellow">
-          삭제하기
-        </Button>
-        <Button onClick={() => switchTodo(todo.id)}>
-          {todo.isDone ? "취소" : "완료"}
-        </Button>
+        <StBtns>
+          <Button onClick={() => deleteTodoObj(todo.id)}>삭제하기</Button>
+          <Button onClick={() => switchTodoObj(todo.id)}>
+            {todo.isDone ? "취소" : "완료"}
+          </Button>
+        </StBtns>
       </div>
     </StTodo>
   );
@@ -58,4 +51,14 @@ const StTodo = styled.li`
   align-items: center;
   box-shadow: 0px 8px 16px 0px #00000033;
   padding: 15px;
+  & p {
+    font-size: 22px;
+    font-weight: 400;
+  }
+`;
+
+const StBtns = styled.div`
+  width: 180px;
+  display: flex;
+  justify-content: space-between;
 `;

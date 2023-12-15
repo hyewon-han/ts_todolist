@@ -1,29 +1,14 @@
-import React, {
-  ChangeEvent,
-  Dispatch,
-  FormEvent,
-  SetStateAction,
-  useState,
-} from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import styled from "styled-components";
 import Button from "./common/Button";
 import { nanoid } from "nanoid";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../redux/modules/todosSlice";
 
-type Todo = {
-  id: string;
-  title: string;
-  content: string;
-  isDone: boolean;
-};
-
-type Props = {
-  todos: Todo[];
-  setTodos: Dispatch<SetStateAction<Todo[]>>;
-};
-
-const Form = ({ todos, setTodos }: Props) => {
+const Form = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const dispatch = useDispatch();
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const {
@@ -41,7 +26,7 @@ const Form = ({ todos, setTodos }: Props) => {
       content,
       isDone: false,
     };
-    setTodos([...todos, todoObj]);
+    dispatch(addTodo(todoObj));
     setTitle("");
     setContent("");
   };
@@ -65,7 +50,7 @@ const Form = ({ todos, setTodos }: Props) => {
         onChange={onChangeHandler}
         required
       />
-      <Button>추가하기</Button>
+      <Button color="sand">추가하기</Button>
     </StForm>
   );
 };

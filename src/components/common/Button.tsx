@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import theme from "../../styles/Theme";
 
 type Props = {
@@ -19,15 +19,28 @@ const Button = ({ onClick, children, color }: Props) => {
 export default Button;
 
 const StBtn = styled.button`
-  height: 50px;
-  width: 100px;
+  min-height: 40px;
+  min-width: 80px;
   border: none;
   transition: all 0.2s ease-in-out;
   padding: 10px;
   border-radius: 10px;
   font-size: 18px;
-  background-color: ${(props) =>
-    props.color === "yellow" ? theme.color.yellow : theme.color.sand};
+  ${(props) => {
+    switch (props.color) {
+      case "sand":
+        return css`
+          background-color: ${theme.color.sand};
+          color: black;
+        `;
+      default:
+        return css`
+          background-color: ${theme.color.grey};
+          color: white;
+        `;
+    }
+  }}
+
   &:hover {
     cursor: pointer;
     filter: brightness(1.2);

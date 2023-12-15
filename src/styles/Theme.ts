@@ -8,6 +8,7 @@ const color = {
   pink: "#d8737f",
   purple: "#685d79",
   sand: "#deb786",
+  grey: "#696969",
 };
 
 const fontSize = {

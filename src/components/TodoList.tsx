@@ -1,22 +1,16 @@
-import React, { Dispatch, SetStateAction } from "react";
 import Todo from "./Todo";
 import styled from "styled-components";
 import theme from "../styles/Theme";
-
-type TodoType = {
-  id: string;
-  title: string;
-  content: string;
-  isDone: boolean;
-};
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/config/configStore";
 
 type Props = {
   isDone: boolean;
-  todos: TodoType[];
-  setTodos: Dispatch<SetStateAction<TodoType[]>>;
 };
 
-const TodoList = ({ isDone, todos, setTodos }: Props) => {
+const TodoList = ({ isDone }: Props) => {
+  const todos = useSelector((state: RootState) => state.todosSlice);
+
   return (
     <>
       <StState>{isDone ? "Done..!🎉" : "Working..!🔥"}</StState>
@@ -24,9 +18,7 @@ const TodoList = ({ isDone, todos, setTodos }: Props) => {
         {todos
           .filter((todo) => todo.isDone === isDone)
           .map((todo) => (
-            <>
-              <Todo todo={todo} todos={todos} setTodos={setTodos} />
-            </>
+            <Todo todo={todo} key={todo.id} />
           ))}
       </StTodoList>
     </>
@@ -37,8 +29,10 @@ export default TodoList;
 
 const StTodoList = styled.ul`
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
   margin: 20px 0px;
+  min-height: 270px;
 `;
 
 const StState = styled.h2`
