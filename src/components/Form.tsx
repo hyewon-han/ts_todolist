@@ -1,25 +1,60 @@
-import React, { useState } from "react";
+import React, {
+  ChangeEvent,
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useState,
+} from "react";
 import styled from "styled-components";
 import Button from "./common/Button";
+import { nanoid } from "nanoid";
 
-type Props = {
-  todos: { id: string }[];
+type Todo = {
+  id: string;
+  title: string;
+  content: string;
+  isDone: boolean;
 };
 
-const Form = ({ todos }: Props) => {
+type Props = {
+  todos: Todo[];
+  setTodos: Dispatch<SetStateAction<Todo[]>>;
+};
+
+const Form = ({ todos, setTodos }: Props) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+
+  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { name, value },
+    } = e;
+    if (name === "title") setTitle(value);
+    if (name === "content") setContent(value);
+  };
+
+  const submitTodo = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const todoObj = {
+      id: nanoid(),
+      title,
+      content,
+      isDone: false,
+    };
+    setTodos([...todos, todoObj]);
+    setTitle("");
+    setContent("");
+  };
+
   return (
-    <StForm>
+    <StForm onSubmit={submitTodo}>
       <label htmlFor="title">제목</label>
       <input
         id="title"
         type="text"
         name="title"
         value={title}
-        onChange={(e) => {
-          setTitle(e.target.value);
-        }}
+        onChange={onChangeHandler}
         required
       />
       <label htmlFor="title">내용</label>
@@ -27,9 +62,7 @@ const Form = ({ todos }: Props) => {
         type="text"
         name="content"
         value={content}
-        onChange={(e) => {
-          setContent(e.target.value);
-        }}
+        onChange={onChangeHandler}
         required
       />
       <Button>추가하기</Button>

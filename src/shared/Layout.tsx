@@ -47,6 +47,5 @@ const StFooter = styled.footer`
 const StLayout = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   min-height: 88vh;
 `;

@@ -4,12 +4,16 @@ import theme from "../../styles/Theme";
 
 type Props = {
   children: string;
-  onClick?: () => {};
+  onClick?: () => void;
   color?: string;
 };
 
-const Button = ({ onClick, children }: Props) => {
-  return <StBtn onClick={onClick}>{children}</StBtn>;
+const Button = ({ onClick, children, color }: Props) => {
+  return (
+    <StBtn onClick={onClick} color={color}>
+      {children}
+    </StBtn>
+  );
 };
 
 export default Button;
