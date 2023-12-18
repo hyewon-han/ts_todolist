@@ -1,22 +1,16 @@
 {
   "todos": [
     {
-      "id": "IYHreRap-fi3uHKmbWGtX",
-      "title": "fff",
-      "content": "ggg",
+      "id": "Ijctu3oVq6yghMgPlZSke",
+      "title": "타입스크립트",
+      "content": "타입스크립트 공부하기",
       "isDone": false
     },
     {
-      "id": "ZzgYqOkvs1lEbT4YP6gc3",
-      "title": "test",
-      "content": "ddd",
+      "id": "hb51sSLhOWn3T9h26lgLG",
+      "title": "리액트",
+      "content": "리액트 공부하기",
       "isDone": true
-    },
-    {
-      "id": "ADZwxtV-DKhyfaON-Jkeh",
-      "title": "fff",
-      "content": "ggg",
-      "isDone": false
     }
   ]
 }
