@@ -1,12 +1,5 @@
 import { baseApi } from "./base";
 
-// type TodoType = {
-//   id: string;
-//   title: string;
-//   content: string;
-//   isDone: boolean;
-// };
-
 export const getTodos = async () => {
   const response = await baseApi.get("/todos");
   return response.data;
